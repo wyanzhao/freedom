@@ -25,6 +25,8 @@ import sifive.blocks.devices.pinctrl.{BasePin}
 import sifive.fpgashells.shell._
 import sifive.fpgashells.clocks._
 
+import boom.system._
+
 object PinGen {
   def apply(): BasePin = {
     new BasePin()
@@ -64,7 +66,7 @@ class DevKitWrapper()(implicit p: Parameters) extends LazyModule
 
 case object DevKitFPGAFrequencyKey extends Field[Double](100.0)
 
-class DevKitFPGADesign(wranglerNode: ClockAdapterNode)(implicit p: Parameters) extends RocketSubsystem
+class DevKitFPGADesign(wranglerNode: ClockAdapterNode)(implicit p: Parameters) extends BoomSubsystem
     with HasPeripheryMaskROMSlave
     with HasPeripheryDebug
 {
@@ -101,14 +103,6 @@ class DevKitFPGADesign(wranglerNode: ClockAdapterNode)(implicit p: Parameters) e
     def describe() = Description("chosen", Map())
   }
 
-  // hook the first PCIe the board has
-  val pcies = p(PCIeOverlayKey).headOption.map(_(PCIeOverlayParams(wranglerNode)))
-  pcies.zipWithIndex.map { case((pcieNode, pcieInt), i) =>
-    val pciename = Some(s"pcie_$i")
-    sbus.fromMaster(pciename) { pcieNode }
-    sbus.toFixedWidthSlave(pciename) { pcieNode }
-    ibus.fromSync := pcieInt
-  }
 
   // LEDs / GPIOs
   val gpioParams = p(PeripheryGPIOKey)
@@ -123,8 +117,8 @@ class DevKitFPGADesign(wranglerNode: ClockAdapterNode)(implicit p: Parameters) e
 }
 
 class U500VC707DevKitSystemModule[+L <: DevKitFPGADesign](_outer: L)
-  extends RocketSubsystemModuleImp(_outer)
-    with HasRTCModuleImp
+  extends BoomSubsystemModule(_outer)
+    with HasRTCModuleImpgit 
     with HasPeripheryDebugModuleImp
 {
   // Reset vector is set to the location of the mask rom
