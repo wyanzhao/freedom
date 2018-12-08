@@ -2,7 +2,7 @@
 
 CC=$(RISCV)/bin/riscv64-unknown-elf-gcc
 OBJCOPY=$(RISCV)/bin/riscv64-unknown-elf-objcopy
-CFLAGS=-march=rv64imac -mcmodel=medany -O2 -std=gnu11 -Wall -nostartfiles 
+CFLAGS=-march=rv64ima -mcmodel=medany -O2 -std=gnu11 -Wall -nostartfiles 
 CFLAGS+= -fno-common -g -DENTROPY=0 -mabi=lp64 -DNONSMP_HART=0 
 CFLAGS+= -I $(BOOTROM_DIR)/include -I.
 LFLAGS=-static -nostdlib -L $(BOOTROM_DIR)/linker -T sdboot.elf.lds

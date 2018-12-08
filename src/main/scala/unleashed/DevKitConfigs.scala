@@ -13,12 +13,14 @@ import sifive.blocks.devices.gpio._
 import sifive.blocks.devices.spi._
 import sifive.blocks.devices.uart._
 
+import boom.system._
+import boom.common._
+
 // Default FreedomU500Config
 class FreedomU500Config extends Config(
   new WithJtagDTM            ++
   new WithNMemoryChannels(1) ++
-  new WithNBigCores(4)       ++
-  new BaseConfig
+  new DefaultBoomConfig ++ new WithNBoomCores(1) ++ new WithoutTLMonitors ++ new freechips.rocketchip.system.BaseConfig
 )
 
 // Freedom U500 Dev Kit Peripherals

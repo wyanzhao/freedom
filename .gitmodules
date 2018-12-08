@@ -10,3 +10,6 @@
 [submodule "nvidia-dla-blocks"]
 	path = nvidia-dla-blocks
 	url = https://github.com/sifive/nvidia-dla-blocks.git
+[submodule "riscv-boom"]
+	path = riscv-boom
+	url = https://github.com/riscv-boom/riscv-boom.git
