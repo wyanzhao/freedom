@@ -4,3 +4,8 @@
 /target
 /project
 /project/target
+
+#log files of running vivado
+/vivado*.jou
+/vivado*.log
+
