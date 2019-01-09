@@ -13,7 +13,7 @@ Both systems boot autonomously and can be controlled via an external debugger.
 Run the following commands to clone the repository and get started:
 
 ```sh
-$ git clone https://github.com/sifive/freedom.git
+$ git clone https://github.com/wyz7155/freedom.git
 $ cd freedom
 
 #Run this command to update subrepositories used by freedom
